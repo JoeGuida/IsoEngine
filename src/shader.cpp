@@ -93,29 +93,34 @@ std::shared_ptr<Shader> ShaderFactory::compile(const std::string& name) {
     return shader;
 }
 
-void Shader::set(const char* uniformName, float value) const {
+void Shader::set(const char* uniform_name, float value) const {
     use();
-    glUniform1f(glGetUniformLocation(ID, uniformName), value);
+    glUniform1f(glGetUniformLocation(ID, uniform_name), value);
 }
 
-void Shader::set(const char* uniformName, int value) const {
+void Shader::set(const char* uniform_name, int value) const {
     use();
-    glUniform1i(glGetUniformLocation(ID, uniformName), value);
+    glUniform1i(glGetUniformLocation(ID, uniform_name), value);
 }
 
-void Shader::set(const char* uniformName, const glm::mat4& value) const {
+void Shader::set(const char* uniform_name, uint32_t value) const {
     use();
-    glUniformMatrix4fv(glGetUniformLocation(ID, uniformName), 1, GL_FALSE, glm::value_ptr(value));
+    glUniform1i(glGetUniformLocation(ID, uniform_name), value);
 }
 
-void Shader::set(const char* uniformName, const glm::vec3& value) const {
+void Shader::set(const char* uniform_name, const glm::mat4& value) const {
     use();
-    glUniform3f(glGetUniformLocation(ID, uniformName), value.x, value.y, value.z);
+    glUniformMatrix4fv(glGetUniformLocation(ID, uniform_name), 1, GL_FALSE, glm::value_ptr(value));
 }
 
-void Shader::set(const char* uniformName, float x, float y, float z) const {
+void Shader::set(const char* uniform_name, const glm::vec3& value) const {
     use();
-    glUniform3f(glGetUniformLocation(ID, uniformName), x, y, z);
+    glUniform3f(glGetUniformLocation(ID, uniform_name), value.x, value.y, value.z);
+}
+
+void Shader::set(const char* uniform_name, float x, float y, float z) const {
+    use();
+    glUniform3f(glGetUniformLocation(ID, uniform_name), x, y, z);
 }
 
 void Shader::use() const {

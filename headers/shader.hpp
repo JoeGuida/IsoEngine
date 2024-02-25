@@ -22,11 +22,12 @@ public:
 
     uint32_t getID() const { return ID; }
     void setID(uint32_t newID) { ID = newID; }
-    void set(const char* uniformName, float value) const;
-    void set(const char* uniformName, int value) const;
-    void set(const char* uniformName, const glm::mat4& value) const;
-    void set(const char* uniformName, const glm::vec3& value) const;
-    void set(const char* uniformName, float x, float y, float z) const;
+    void set(const char* uniform_name, float value) const;
+    void set(const char* uniform_name, int value) const;
+    void set(const char* uniform_name, uint32_t value) const;
+    void set(const char* uniform_name, const glm::mat4& value) const;
+    void set(const char* uniform_name, const glm::vec3& value) const;
+    void set(const char* uniform_name, float x, float y, float z) const;
     void use() const;
 
     friend class ShaderFactory;
