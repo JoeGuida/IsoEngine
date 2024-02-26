@@ -7,6 +7,7 @@
 #include "rectangle.hpp"
 #include "renderer.hpp"
 #include "shader.hpp"
+#include "texture.hpp"
 
 constexpr int SCREEN_WIDTH = 1920;
 constexpr const int SCREEN_HEIGHT = 1080;
@@ -36,30 +37,7 @@ int main() {
 	// --------------------------------------------------------------------------------------------
 	// Texture Setup
 	// --------------------------------------------------------------------------------------------
-	int width, height, num_channels;
-	stbi_set_flip_vertically_on_load(true);
-	unsigned char* data = stbi_load(
-		(FileSystem::get_path("/src/textures/") + "test.png").c_str(),
-		&width,
-		&height,
-		&num_channels,
-		0);
-
-	uint32_t texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	if (data) {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-		stbi_image_free(data);
-	}
-	else {
-		std::cout << "Failed to load texture" << std::endl;
-	}
+	Texture texture(FileSystem::get_path("/src/textures/test.png"));
 
 	// --------------------------------------------------------------------------------------------
 	// Create Objects
