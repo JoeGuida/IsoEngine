@@ -4,7 +4,7 @@ uint32_t Renderer::EBO;
 uint32_t Renderer::VAO;
 uint32_t Renderer::VBO;
 
-void Renderer::draw(const Rectangle& rectangle, const Material& material) {
+void Renderer::draw(const Rectangle& rectangle) {
 	std::array<float, 20> vertices = rectangle.get_vertices();
 	std::array<uint32_t, 6> indices = rectangle.get_indices();
 
@@ -21,7 +21,11 @@ void Renderer::draw(const Rectangle& rectangle, const Material& material) {
 	glEnableVertexAttribArray(1);
 
 	glm::mat4 model = glm::mat4(1.0f);
-	material.shader->set("model", model);
+	model = glm::translate(model, rectangle.transform.position);
+	model = glm::rotate(model, rectangle.transform.rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::scale(model, rectangle.transform.local_scale);
+	rectangle.material.shader->set("model", model);
+	rectangle.material.shader->set("tex", rectangle.material.texture.get_id() - 1);	
 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

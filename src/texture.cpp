@@ -11,6 +11,8 @@ uint32_t Texture::load(const std::string& filename) {
 		0);
 
 	uint32_t texture;
+	glActiveTexture(GL_TEXTURE_IDS.at(next_available_id));
+	next_available_id++;
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

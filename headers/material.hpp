@@ -6,14 +6,15 @@
 #include <memory>
 
 #include "shader.hpp"
+#include "texture.hpp"
 
 struct Material {
-	Material(const glm::vec3& color, const std::shared_ptr<Shader>& shader) : color(color), shader(shader) {}
+	Material(const Texture& texture, const std::shared_ptr<Shader>& shader) : texture(texture), shader(shader) {}
 	Material(const Material&) = default;
 	Material(Material&&) = default;
 	virtual ~Material() = default;
 
-	glm::vec3 color;
+	Texture texture;
 	std::shared_ptr<Shader> shader;
 };
 

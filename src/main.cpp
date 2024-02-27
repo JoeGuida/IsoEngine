@@ -30,19 +30,22 @@ int main() {
 	std::shared_ptr<Shader> default_shader = ShaderFactory::create("default");
 
 	// --------------------------------------------------------------------------------------------
-	// Create Materials
-	// --------------------------------------------------------------------------------------------
-	Material default_material(glm::vec3(0.0f, 0.0f, 1.0f), default_shader);
-
-	// --------------------------------------------------------------------------------------------
 	// Texture Setup
 	// --------------------------------------------------------------------------------------------
-	Texture texture(FileSystem::get_path("/src/textures/test.png"));
+	Texture left_texture(FileSystem::get_path("/src/textures/test.png"));
+	Texture right_texture(FileSystem::get_path("/src/textures/test.jpg"));
+
+	// --------------------------------------------------------------------------------------------
+	// Create Materials
+	// --------------------------------------------------------------------------------------------
+	Material left_material(left_texture, default_shader);
+	Material right_material(right_texture, default_shader);
 
 	// --------------------------------------------------------------------------------------------
 	// Create Objects
 	// --------------------------------------------------------------------------------------------
-	Rectangle rectangle(0.5f);
+	Rectangle rectangle_right(0.5f, Transform(glm::vec3(1.0f, 0.0f, 0.0f)), left_material);
+	Rectangle rectangle_left(0.5f, Transform(glm::vec3(-1.0f, 0.0f, 0.0f)), right_material);
 
 	// --------------------------------------------------------------------------------------------
 	// Render Loop
@@ -52,7 +55,9 @@ int main() {
 	while (!glfwWindowShouldClose(window)) {
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		Renderer::draw(rectangle, default_material);
+
+		Renderer::draw(rectangle_left);
+		Renderer::draw(rectangle_right);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

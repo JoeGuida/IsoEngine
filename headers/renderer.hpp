@@ -3,9 +3,6 @@
 
 #include <glad/glad.h>
 
-#include <stdint.h>
-
-#include "material.hpp"
 #include "rectangle.hpp"
 
 class Renderer {
@@ -16,7 +13,7 @@ public:
 		glGenBuffers(1, &EBO);
 	}
 
-	static void draw(const Rectangle& rectangle, const Material& material);
+	static void draw(const Rectangle& rectangle);
 
 private:
 	static uint32_t EBO;
